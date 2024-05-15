@@ -2,8 +2,8 @@ const fs = require('fs')
 const path = require('path');
 
 
-const root = path.dirname(require.main.filename).split("src")[0]
-var rootFolder = path.join(root, "data");
+// const root = path.dirname(require.main.filename).split("src")[0]
+// var rootFolder = path.join(root, "data");
 
 const stockSearch = async (req, res) => {
 
@@ -13,10 +13,10 @@ const stockSearch = async (req, res) => {
 
         if(!stock) throw new Error('Please send stock.')
 
-        const stockCodes = fs.readFileSync(`${rootFolder}/stock_codes.json`, 'utf-8')
+        const stockCodes = fs.readFileSync('./data/stock_codes.json', 'utf-8')
         const stockCodes_ = new Object(JSON.parse(stockCodes))
     
-        const avaliableStockCodes = fs.readFileSync(`${rootFolder}/avaliable_stock_codes.json`, 'utf-8')
+        const avaliableStockCodes = fs.readFileSync('./data/avaliable_stock_codes.json', 'utf-8')
         const avaliableStockCodes_ = JSON.parse(avaliableStockCodes)
         
     
