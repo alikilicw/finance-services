@@ -1,6 +1,16 @@
 # Python resmi imajından başlayın
 FROM python:3.12.3-bullseye
 
+# Gerekli bağımlılıkları yükleyin
+RUN apt-get update \
+    && apt-get install -y firefox-esr \
+    && apt-get install -y wget \
+    && wget -q https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.30.0-linux64.tar.gz \
+    && tar -xvzf geckodriver-v0.30.0-linux64.tar.gz \
+    && chmod +x geckodriver \
+    && mv geckodriver /usr/local/bin/ \
+    && apt-get clean
+
 # Çalışma dizinini belirleyin
 WORKDIR /app
 
