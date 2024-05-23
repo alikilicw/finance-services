@@ -2,9 +2,6 @@ const fs = require('fs')
 const path = require('path');
 
 
-// const root = path.dirname(require.main.filename).split("src")[0]
-// var rootFolder = path.join(root, "data");
-
 const stockSearch = async (req, res) => {
 
     const { stock } = req.query
