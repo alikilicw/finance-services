@@ -25,7 +25,7 @@ const main = async (req, res) => {
 
         console.log(news_data, 'news_data')
 
-        const nlp_res = await axios.post(`http://127.0.0.1:5003`, 
+        const nlp_res = await axios.post(`${process.env.NLP_HOST}:5003`,
             {
                 'news': news_data
             }
