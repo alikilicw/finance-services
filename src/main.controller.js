@@ -1,4 +1,5 @@
 const axios = require('axios')
+require("dotenv").config()
 
 const main = async (req, res) => {
 
@@ -9,12 +10,12 @@ const main = async (req, res) => {
         if(!stock) throw new Error('Please send a stock code.')
         const stockCode = stock
         
-        const financial_table_res = await axios.get(`http://127.0.0.1:5002/financial-table?stock_code=${stockCode}`);
+        const financial_table_res = await axios.get(`${process.env.WEB_SCRAPE_HOST}:5002/financial-table?stock_code=${stockCode}`);
         const financial_table_data = financial_table_res.data
 
         console.log(financial_table_data, 'financial_table_data')
 
-        const news_res = await axios.post(`http://127.0.0.1:5002/news`, 
+        const news_res = await axios.post(`${process.env.WEB_SCRAPE_HOST}:5002/news`, 
             {
                 'stock_code': financial_table_data['stock_code'],
                 'periods': financial_table_data['periods']
