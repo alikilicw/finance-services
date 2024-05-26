@@ -116,19 +116,19 @@ def news(stock_data: dict):
                         #bütün haber detaylarında ortak olan kapsayıcı article tagını al.
                         detail_article = detail_wait.until(EC.presence_of_element_located((By.TAG_NAME, 'article')))
                         # print(detail_article.get_attribute('textContent'))
-                        FileManager('news.json').add_to_json({index: detail_article.get_attribute('textContent')})
+                        # FileManager('news.json').add_to_json({index: detail_article.get_attribute('textContent')})
 
                     except Exception as err:
                         print(err)
                         continue
 
                     #içeriği alınan haber hangi perioda denk geliyorsa ona göre çıkış verisine ekle.
-                    if period == stock_data['periods'][0] and detail_article.text != '':
-                        stock_record['first_period'].append(detail_article.text)
-                    if period == stock_data['periods'][1] and detail_article.text != '':
-                        stock_record['second_period'].append(detail_article.text)
-                    if period == stock_data['periods'][2] and detail_article.text != '':
-                        stock_record['third_period'].append(detail_article.text)  
+                    if period == stock_data['periods'][0] and detail_article.get_attribute('textContent') != '':
+                        stock_record['first_period'].append(detail_article.get_attribute('textContent'))
+                    if period == stock_data['periods'][1] and detail_article.get_attribute('textContent') != '':
+                        stock_record['second_period'].append(detail_article.get_attribute('textContent'))
+                    if period == stock_data['periods'][2] and detail_article.get_attribute('textContent') != '':
+                        stock_record['third_period'].append(detail_article.get_attribute('textContent'))  
 
         # Tarayıcıyı kapatın
         detail_driver.quit()
