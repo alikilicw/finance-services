@@ -5,6 +5,12 @@ FROM python:3.12.3-bullseye
 RUN rm -f /usr/local/bin/geckodriver
 
 # Gerekli bağımlılıkları yükleyin
+
+ENV GECKODRIVER_VERSION 0.34.0
+RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/v${GECKODRIVER_VERSION}/geckodriver-v${GECKODRIVER_VERSION}-linux64.tar.gz" \
+    && tar -xzf geckodriver-v${GECKODRIVER_VERSION}-linux64.tar.gz \
+    && mv geckodriver /usr/local/bin/ \
+    && rm geckodriver-v${GECKODRIVER_VERSION}-linux64.tar.gz
 RUN apt-get update \
     && apt-get install -y firefox-esr \
     && apt-get install -y wget \
@@ -13,12 +19,6 @@ RUN apt-get update \
     && chmod +x geckodriver \
     && mv geckodriver /usr/local/bin/ \
     && apt-get clean
-
-ENV GECKODRIVER_VERSION 0.34.0
-RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/v${GECKODRIVER_VERSION}/geckodriver-v${GECKODRIVER_VERSION}-linux64.tar.gz" \
-    && tar -xzf geckodriver-v${GECKODRIVER_VERSION}-linux64.tar.gz \
-    && mv geckodriver /usr/local/bin/ \
-    && rm geckodriver-v${GECKODRIVER_VERSION}-linux64.tar.gz
 
 # Çalışma dizinini belirleyin
 WORKDIR /app
