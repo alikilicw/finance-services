@@ -39,5 +39,5 @@ def get_news(request):
     stock_data = json.loads(body_)
 
     value = news(stock_data)
-
+    print(value)
     return JsonResponse(value)
