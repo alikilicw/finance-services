@@ -13,7 +13,7 @@ months = {
     '12': ['Ekim', 'Kasım', 'Aralık', 'October', 'November', 'December']
 }
 
-def news(stock_data):
+def news(stock_data: dict):
 
         #çıkış verisi olan stock_recordu başlat.
         stock_record = {}
@@ -66,7 +66,7 @@ def news(stock_data):
             #sayfadaki bütün haber nesnelerini al.
             news_section = main_driver.find_element(By.CLASS_NAME, 'daily-newsletters-block')
             news = news_section.find_elements(By.CLASS_NAME, 'fadeInUp-scroll')
-
+            
             for new in news:
                 #haberin başlığı ve tarihini al.
                 title = new.find_element(By.TAG_NAME, 'h4').get_attribute('textContent').lstrip().rstrip()
@@ -115,8 +115,8 @@ def news(stock_data):
 
                         #bütün haber detaylarında ortak olan kapsayıcı article tagını al.
                         detail_article = detail_wait.until(EC.presence_of_element_located((By.TAG_NAME, 'article')))
-
-                        FileManager('news.json').add_to_json({index: detail_article.text})
+                        # print(detail_article.get_attribute('textContent'))
+                        FileManager('news.json').add_to_json({index: detail_article.get_attribute('textContent')})
 
                     except Exception as err:
                         print(err)
@@ -130,7 +130,6 @@ def news(stock_data):
                     if period == stock_data['periods'][2] and detail_article.text != '':
                         stock_record['third_period'].append(detail_article.text)  
 
-        
         # Tarayıcıyı kapatın
         detail_driver.quit()
         main_driver.quit()
