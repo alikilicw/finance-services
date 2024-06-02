@@ -23,9 +23,7 @@ const main = async (req, res) => {
         );
         const news_data = news_res.data
 
-        console.log(news_data, 'news_data')
-
-        const nlp_res = await axios.post(`${process.env.NLP_HOST}:5003`,
+        const nlp_res = await axios.post(`${process.env.NLP_HOST}:5003/nlp`,
             {
                 'news': news_data
             }
@@ -35,6 +33,15 @@ const main = async (req, res) => {
         financial_table_data['first_period_news_value'] = nlp_data['first_period_news_value']
         financial_table_data['second_period_news_value'] = nlp_data['second_period_news_value']
         financial_table_data['third_period_news_value'] = nlp_data['third_period_news_value']
+
+        const ai_res = await axios.post(`${process.env.NLP_HOST}:5003/ai`,
+            {
+                'data': [financial_table_data]
+            }
+        );
+        const ai_data = ai_res.data
+
+        financial_table_data['guessed_fouth_period_price'] = ai_data['guessed_value']
 
         res.json(financial_table_data).status(200)
         
