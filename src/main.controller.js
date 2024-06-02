@@ -41,7 +41,9 @@ const main = async (req, res) => {
         );
         const ai_data = ai_res.data
 
-        financial_table_data['guessed_fouth_period_price'] = ai_data['guessed_value']
+        console.log(ai_data);
+
+        financial_table_data['guessed_fouth_period_price'] = ai_data['prediction']
 
         res.json(financial_table_data).status(200)
         
